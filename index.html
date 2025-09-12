@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sanatkumar Jadhav • Portfolio</title>
+  <meta name="description" content="Portfolio of Sanatkumar Jadhav, B.Sc. CS (Second Year). Skills: HTML, CSS, JavaScript, C, C++, SQL."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0e14; --panel:#0f1320; --text:#e8ecf1; --muted:#aab4c0;
+      --brand:#6be675; --brand-2:#4dd0e1; --ring: rgba(109, 234, 146, .6);
+      --card:#11162a; --border:#1b2136; --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: linear-gradient(180deg, var(--bg), #0c1222 50%, #0a0f1b 100%);
+      color:var(--text);
+    }
+    .container{ width:min(1120px, 92vw); margin-inline:auto; }
+    header{
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter: saturate(180%) blur(10px);
+      background: rgba(10,15,27,.55);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px; }
+    .brand .logo{ width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b0e14; font-weight:900; box-shadow: var(--shadow); }
+    .nav a{ color:var(--muted); text-decoration:none; font-weight:600; padding:10px 12px; border-radius:8px; }
+    .nav a:hover{ color:var(--text); background:rgba(255,255,255,.04);}    
+    .menu{ display:flex; gap:6px; align-items:center; }
+    .menu-toggle{ display:none; }
+    @media (max-width: 860px){
+      .menu{ display:none; position:absolute; right:16px; top:64px; flex-direction:column; background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:10px; box-shadow: var(--shadow); width: 220px; }
+      .menu.show{ display:flex; }
+      .menu-toggle{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:12px; background: var(--card); border:1px solid var(--border); color:var(--text); }
+    }
+    .hero{ padding:90px 0 60px; display:grid; grid-template-columns: 1.2fr .8fr; gap:36px; align-items:center; }
+    .eyebrow{ color:var(--brand); font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:12px; }
+    h1{ font-size: clamp(34px, 5vw, 54px); letter-spacing:-.02em; margin:10px 0 10px; }
+    .subtitle{ color:var(--muted); font-size: clamp(16px, 2.5vw, 18px); line-height:1.7; }
+    .actions{ display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; }
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:700; border:1px solid var(--border); background:var(--card); color:var(--text); text-decoration:none; box-shadow: var(--shadow); cursor:pointer; }
+    .btn.primary{ background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b0e14; border:none; }
+    .btn:hover{ transform: translateY(-1px); }
+    .headshot { width: 100%; aspect-ratio: 1/1; border-radius: 24px; border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); }
+    .headshot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .quick-badges{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    .badge{ padding:6px 10px; border-radius:999px; background: rgba(107, 230, 117, .12); border:1px solid rgba(107,230,117,.35); color:#b6ffd1; font-weight:600; font-size:12px; }
+    section{ padding:66px 0; border-top:1px dashed var(--border); }
+    .section-title{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+    .section-title h2{ font-size: clamp(24px, 3.2vw, 34px); margin:0; }
+    .section-title p{ color:var(--muted); margin:6px 0 0; }
+    .about-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:26px; }
+    .about-card{ background: var(--panel); border:1px solid var(--border); border-radius:18px; padding:20px; box-shadow: var(--shadow); }
+    .about-card p{ color:var(--muted); line-height:1.8; }
+    .skills{ display:grid; grid-template-columns: repeat(6, 1fr); gap:14px; }
+    .skill{ background: var(--card); border:1px solid var(--border); border-radius:14px; padding:14px; text-align:center; font-weight:700; }
+    .skill small{ display:block; color:var(--muted); font-weight:600; margin-top:6px; }
+    @media (max-width: 900px){
+      .hero{ grid-template-columns:1fr; }
+      .about-grid{ grid-template-columns:1fr; }
+      .skills{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 520px){ .skills{ grid-template-columns: repeat(2, 1fr); } }
+    .projects{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+    .card{ background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow: var(--shadow); display:flex; flex-direction:column; }
+    .card .thumb{ aspect-ratio:16/9; background:#0d1428 center/cover no-repeat; border-bottom:1px solid var(--border); }
+    .card .body{ padding:16px; display:flex; flex-direction:column; gap:8px; }
+    .card h3{ margin:0; font-size:18px; }
+    .pill{ display:inline-block; font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid var(--border); color:var(--muted); text-decoration:none; text-align:center; }
+    .card .links{ margin-top:auto; display:flex; gap:10px; }
+    .gallery{ display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
+    .gallery .ph{ aspect-ratio: 4/3; border-radius:14px; background:#0d1428 center/cover no-repeat; border:1px solid var(--border); box-shadow: var(--shadow); }
+    @media (max-width: 900px){ .projects{ grid-template-columns: repeat(2, 1fr);} .gallery{ grid-template-columns: repeat(3, 1fr);} }
+    @media (max-width: 560px){ .projects{ grid-template-columns: 1fr;} .gallery{ grid-template-columns: repeat(2, 1fr);} }
+    .timeline{ position:relative; padding-left:24px; }
+    .timeline:before{ content:""; position:absolute; left:6px; top:0; bottom:0; width:2px; background: linear-gradient(#24304e, #1b2842); border-radius:2px; }
+    .t-item{ position:relative; margin: 0 0 18px; background: var(--panel); border:1px solid var(--border); border-radius:14px; padding:14px 16px; }
+    .t-item:before{ content:""; position:absolute; left:-3px; top:18px; width:8px; height:8px; border:2px solid #1b2842; background: var(--brand); border-radius:50%; box-shadow:0 0 0 4px rgba(107,230,117,.15); }
+    .t-item h4{ margin:0 0 6px; }
+    .t-item p{ margin:6px 0 0; color:var(--muted); }
+    form{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    form .full{ grid-column: 1/-1; }
+    label{ display:block; font-weight:700; margin: 2px 0 6px; }
+    input, textarea{ width:100%; padding:12px 12px; border-radius:12px; border:1px solid var(--border); background: #0d1326; color:var(--text); outline: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+    input:focus, textarea:focus{ border-color: var(--ring); box-shadow: 0 0 0 4px rgba(107,230,117,.12); }
+    textarea{ min-height:140px; resize: vertical; }
+    footer{ padding:30px 0 60px; color:var(--muted); text-align:center; }
+  </style>
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+    (function(){
+        emailjs.init({
+          publicKey: "Qq5N7e6uOa1aWzt7q",
+        });
+    })();
+  </script>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">SJ</div>
+        <div>
+          <div style="font-size:14px; color:var(--muted); font-weight:700;">Portfolio</div>
+          <div>Sanatkumar Jadhav</div>
+        </div>
+      </div>
+      <nav>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+        <div class="menu" id="menu">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+           <a href="#certifications">Certifications</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="home" class="container hero">
+    <div>
+      <div class="eyebrow">B.Sc. Computer Science • 2nd Year</div>
+      <h1>Hi, I'm <span style="color:var(--brand)">Sanatkumar Jadhav</span></h1>
+      <p class="subtitle">An aspiring software developer pursuing graduation in <strong>B.Sc. Computer Science (Second Year)</strong>. I enjoy building clean, responsive websites and learning core programming concepts. I'm currently focused on front-end development and sharpening my skills in algorithms and databases.</p>
+      <div class="quick-badges">
+        <span class="badge">Open to Internships</span>
+        <span class="badge">Based in India</span>
+        <span class="badge">Available for Freelance</span>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Contact Me</a>
+        <a class="btn" href="#projects">See Projects</a>
+        <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=jadhavsanatkumar932@gmail.com" target="_blank">Email</a>
+        <a class="btn" href="c:\Users\Msi-Laptop\OneDrive\Documents\Sanatkumar_Jadhav_CV.pdf" download>Download Résumé</a>
+      </div>
+    </div>
+    <div class="headshot">
+      <img src="c:\Users\Msi-Laptop\OneDrive\Documents\sanatkumarj.jpg" alt="Headshot">
+    </div>
+  </main>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-title">
+        <h2>About Me</h2>
+        <p>A quick introduction</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Who I Am</h3>
+          <p>I'm Sanatkumar Jadhav, a curious learner. I love turning ideas into interactive, user-friendly experiences. When I'm not coding, I'm reading tech blogs, organizing notes, or experimenting with small projects.</p>
+        </div>
+        <div class="about-card">
+          <h3>What I'm Doing Now</h3>
+          <p>Pursuing <strong>B.Sc. CS (Second Year)</strong> while building a solid foundation in <strong>HTML, CSS, JavaScript, C, C++, and SQL</strong>. Practicing mini-projects and learning modern web practices like responsive design and accessibility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-title">
+        <h2>Skills</h2>
+        <p>Technologies and tools I work with</p>
+      </div>
+      <div class="skills">
+        <div class="skill">HTML <small>Experienced</small></div>
+        <div class="skill">CSS <small>Experienced</small></div>
+        <div class="skill">JavaScript <small>Intermediate</small></div>
+        <div class="skill">C <small>Intermediate</small></div>
+        <div class="skill">C++ <small>Intermediate</small></div>
+        <div class="skill">SQL <small>Intermediate</small></div>
+        <div class="skill">VS Code <small>Experienced</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <p>Some of my recent work</p>
+      </div>
+      <div class="projects">
+        <div class="card">
+          <div class="thumb" style="background-image:url('file:///C:/Users/Msi-Laptop/OneDrive/Pictures/Screenshots/Portfolio.png')"></div>
+          <div class="body">
+            <h3>Portfolio Website</h3>
+            <p>A personal portfolio website built using HTML, CSS, and JS, showcasing skills and projects.</p>
+            <div class="links">
+              <a class="pill" href="#" target="_blank">Live</a>
+              <a class="pill" href="#" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="thumb" style="background-image:url('d:/Pictures/CollageAttendanceSystem.png')"></div>
+          <div class="body">
+            <h3>Collage Attendance System</h3>
+            <p>A simple attendance management system built using HTML, CSS, and JS.</p>
+            <div class="links">
+              <a class="pill" href="file:///C:/Users/Msi-Laptop/OneDrive/Desktop/Mini%20Project/ATTENDACE/index.HTML" target="_blank">Live</a>
+              <a class="pill" href="#" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="thumb" style="background-image:url('file:///C:/Users/Msi-Laptop/OneDrive/Pictures/Screenshots/Amazon.png')"></div>
+          <div class="body">
+            <h3>Amazon Clone Homepage</h3>
+            <p>A simple clone website of amazon built using HTML and CSS.</p>
+            <div class="links">
+              <a class="pill" href="file:///C:/Users/Msi-Laptop/OneDrive/Desktop/Mini%20Project/Project%20Amazon/Amazonclone.html" target="_blank">Live</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications">
+    <div class="container">
+      <div class="section-title">
+        <h2>Certifications</h2>
+        <p>Courses and certifications I have achieved</p>
+      </div>
+      <div class="timeline">
+        <div class="t-item">
+          <h4>Mastering HTML5 & CSS3 Part 1 (Beginner leval)</h4>
+          <p>Udemy</p>
+          <p>Completed certification covering begineer leval topics like introduction basic html tags and text formating tags and in css introduction and all types  of selectors are covered.</p>
+          <a class="pill" href="certificates/html & css certificate (1).pdf" target="_blank">View Certificate</a>
+        </div>
+
+        <div class="t-item">
+          <h4>Mastering HTML5 & CSS3 part 2 (Intermediate level)</h4>
+          <p>Udemy</p>
+          <p>Complated certification covering intermediate topics like table, list tag, iframe, image map, semantic elements, meta element and fevicon ect.</p>
+          <a class="pill" href="certificates/html & css (2).pdf" target="_blank">View Certificate</a>
+        </div>
+
+        <div class="t-item">
+          <h4>C Programming certificate</h4>
+          <p>Udemy</p>
+          <p>Successfully completed certification in C Programming, gaining a strong foundation in structured programming concepts, data types, control structures, functions, arrays, pointers, and memory management. The certification enhanced problem-solving skills, logical thinking, and the ability to write efficient, optimized code.</p>
+          <a class="pill" href="certificates/C Programming Certificate.pdf" target="_blank">View Certificate</a>
+        </div>
+
+        <div class="t-item">
+          <h4>Introduction to MongoDB</h4>
+          <p>MongoDB</p> 
+          <p>Certified by Gaining knowledge of NoSQL fundamentals, CRUD operations, indexing, and data modeling using MongoDB.</p>
+          <a class="pill" href="certificates/Introduction_to_MongoDB_course_certificate.pdf" target="_blank">View Certificate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- Education -->
+  <section id="education">
+    <div class="container">
+      <div class="section-title">
+        <h2>Education</h2>
+        <p>Academic background</p>
+      </div>
+      <div class="timeline">
+        <div class="t-item">
+          <h4>B.Sc. Computer Science (Second Year)</h4>
+          <p>Deogiri Institute of Technology and Management Studies Chh. Sambhajinagar, Maharashtra, India</p>
+          <p>Currently pursuing a Bachelor of Science in Computer Science, focusing on programming, web development, and databases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact Me</h2>
+        <p>Get in touch</p>
+      </div>
+      <form action="mailto:jadhavsanatkumar932@gmail.com" method="post" enctype="text/plain">
+        <div class="full">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+        </div>
+        <div class="full">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="full">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="Subject" required>
+        </div>
+        <div class="full"> 
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Your message..." required></textarea>
+        </div>
+        <div class="full">
+          <button class="btn primary" type="button" onclick="sendEmail()">Send Message</button>
+        </div>
+      </form>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div>© <span id="year"></span> Sanatkumar Jadhav • Built with HTML, CSS & JS</div>
+      <div style="margin-top:8px;">
+        <a class="pill" href="#home">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+    toggle?.addEventListener('click', ()=> menu.classList.toggle('show'));
+    menu.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> menu.classList.remove('show')));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
